@@ -1,0 +1,26 @@
+.navbar{
+    height: 50px;
+    width: 100%;
+    background-color: #242424;
+    .wrapper{
+        text-decoration: none;
+        height: 100%;
+        max-width: 1366px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        span{
+            font-weight: bold;
+        }
+        .links{
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            img{
+                width: 20px;
+            }
+        }
+    }
+}
