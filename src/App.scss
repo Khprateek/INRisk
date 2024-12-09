@@ -3,6 +3,7 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  padding-top: 4rem;
 }
 
 .home-content {
@@ -11,7 +12,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 2rem;
+  padding: 2rem 0;
 }
 
 .logo {

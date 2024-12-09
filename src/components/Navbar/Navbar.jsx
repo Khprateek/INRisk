@@ -1,24 +1,22 @@
 import "./Navbar.scss";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 
 const Navbar = () => {
   return (
-    <div className="navbar">
-      <div className="wrapper">
-      <div className="logo">INRisk</div>
-        <div className="links">
-          <Link to="/">Home</Link>
-          <Link to="/Goldenway">Golden Way</Link>
-          <Link to="/services">Services</Link>
-          <Link to="/marketlense">Market Lense</Link>
-          <Link to="/contacts">Contacts</Link>
-          <Link to="/cart">
-            <img src="/Images/Bag_icon.png" alt="Shopping Cart" />
-          </Link>
-        </div>
+    <nav className="navbar">
+      <div className="logo-container">
+        <img src="/logo.png" alt="INRisk Logo" />
       </div>
-    </div>
+      <div className="nav-links">
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/services" className="nav-link">Services</Link>
+        <Link to="/marketlense" className="nav-link">Market Lense</Link>
+        <Link to="/contacts" className="nav-link">Contacts</Link>
+        <Link to="/Goldenway" className="button">
+          <span>Golden Way</span>
+        </Link>
+      </div>
+    </nav>
   );
 }
 
