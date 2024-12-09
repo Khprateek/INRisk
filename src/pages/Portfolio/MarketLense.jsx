@@ -1,13 +1,13 @@
 import React from "react";
 import './Portfolio.scss';
 
-function Portfolio() {
+function MarketLense() {
   return (
     <div className="dashboard-container">
-      <h1>Portfolio</h1>
+      <h1>Market Lense</h1>
       
     </div>
   );
 }
 
-export default Portfolio;
+export default MarketLense;

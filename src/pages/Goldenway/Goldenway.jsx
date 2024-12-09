@@ -4,19 +4,19 @@ import './Goldenway.scss';
 
 function GoldenWay() {
   const [formData, setFormData] = useState({
-    name: '',
     age: '',
     currentSavings: '',
-    monthlyIncome: '',
-    monthlyExpenses: '',
+    monthlyDeposit: '',
     expectedRetirementAge: '',
-    riskTolerance: 'moderate',
-    expectedInflation: 3,
+    requiredRetirementAmount: '',
+    riskTolerance: '',
   });
 
+  const INFLATION_RATE = 0.06;
   const [retirementPlan, setRetirementPlan] = useState(null);
   const [projectionData, setProjectionData] = useState([]);
-  const [formVisible, setFormVisible] = useState(true); // Manage form visibility
+  const [formVisible, setFormVisible] = useState(true);
+  const [requiredReturn, setRequiredReturn] = useState(null);
 
   // Load data from local storage when the component mounts
   useEffect(() => {
@@ -39,18 +39,58 @@ function GoldenWay() {
     }));
   };
 
-  const calculateRetirement = () => {
+  const calculateRequiredReturn = () => {
     const yearsToRetirement = formData.expectedRetirementAge - formData.age;
-    const monthlyInvestment = formData.monthlyIncome - formData.monthlyExpenses;
+    const monthlyDeposit = Number(formData.monthlyDeposit);
+    const targetAmount = Number(formData.requiredRetirementAmount);
+    const currentSavings = Number(formData.currentSavings);
+    
+    // Using Goal Seek approximation
+    let requiredRate = 0.05; // Start with 5%
+    const maxIterations = 100;
+    let iteration = 0;
+    
+    while (iteration < maxIterations) {
+      let projectedAmount = currentSavings;
+      const yearlyDeposit = monthlyDeposit * 12;
+      
+      for (let year = 1; year <= yearsToRetirement; year++) {
+        projectedAmount = (projectedAmount + yearlyDeposit) * (1 + requiredRate);
+      }
+      
+      const difference = projectedAmount - targetAmount;
+      
+      if (Math.abs(difference) < targetAmount * 0.01) { // Within 1% accuracy
+        break;
+      }
+      
+      if (projectedAmount < targetAmount) {
+        requiredRate += 0.01;
+      } else {
+        requiredRate -= 0.005;
+      }
+      
+      iteration++;
+    }
+    
+    return requiredRate;
+  };
 
-    const riskReturns = {
-      conservative: 0.06,
-      moderate: 0.08,
-      aggressive: 0.10,
-    };
+  const determineRiskTolerance = (requiredReturn) => {
+    if (requiredReturn <= 0.06) return 'conservative';
+    if (requiredReturn <= 0.09) return 'moderate';
+    return 'aggressive';
+  };
 
-    const annualReturn = riskReturns[formData.riskTolerance];
-    const inflationRate = formData.expectedInflation / 100;
+  const calculateRetirement = () => {
+    const requiredReturnRate = calculateRequiredReturn();
+    setRequiredReturn(requiredReturnRate);
+    
+    const riskLevel = determineRiskTolerance(requiredReturnRate);
+    setFormData(prev => ({ ...prev, riskTolerance: riskLevel }));
+
+    const yearsToRetirement = formData.expectedRetirementAge - formData.age;
+    const monthlyDeposit = Number(formData.monthlyDeposit);
 
     const projections = [];
     let currentSavings = Number(formData.currentSavings);
@@ -58,11 +98,11 @@ function GoldenWay() {
     let totalProjectedValue = currentSavings;
 
     for (let year = 1; year <= yearsToRetirement; year++) {
-      const yearlyContribution = monthlyInvestment * 12;
-      totalProjectedValue = (totalProjectedValue + yearlyContribution) * (1 + annualReturn);
+      const yearlyContribution = monthlyDeposit * 12;
+      totalProjectedValue = (totalProjectedValue + yearlyContribution) * (1 + requiredReturnRate);
       cumulativeContributions += yearlyContribution;
 
-      const inflationAdjustedValue = totalProjectedValue / Math.pow(1 + inflationRate, year);
+      const inflationAdjustedValue = totalProjectedValue / Math.pow(1 + INFLATION_RATE, year);
 
       projections.push({
         year,
@@ -72,15 +112,14 @@ function GoldenWay() {
       });
     }
 
-    const futureValue = projections[projections.length - 1].totalValue;
-    const inflationAdjustedFinalValue = projections[projections.length - 1].inflationAdjustedValue;
-
     setRetirementPlan({
-      futureValue: Math.round(futureValue),
-      inflationAdjustedFinalValue: Math.round(inflationAdjustedFinalValue),
-      monthlyInvestment,
+      futureValue: Math.round(totalProjectedValue),
+      inflationAdjustedFinalValue: Math.round(totalProjectedValue / Math.pow(1 + INFLATION_RATE, yearsToRetirement)),
+      monthlyDeposit,
       yearsToRetirement,
       totalContributions: Math.round(cumulativeContributions),
+      requiredReturn: (requiredReturnRate * 100).toFixed(2),
+      riskTolerance: riskLevel,
     });
 
     setProjectionData(projections);
@@ -96,20 +135,12 @@ function GoldenWay() {
   return (
     <div className="golden-way-container">
       <h1>Plan Your Golden Years</h1>
+      <div className="inflation-info">
+        <p>Calculated with {INFLATION_RATE * 100}% annual inflation rate</p>
+      </div>
       <div className="form-container">
         {formVisible ? (
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>Full Name</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
             <div className="form-group">
               <label>Current Age</label>
               <input
@@ -133,22 +164,11 @@ function GoldenWay() {
             </div>
 
             <div className="form-group">
-              <label>Monthly Income (₹)</label>
+              <label>Monthly Deposit (₹)</label>
               <input
                 type="number"
-                name="monthlyIncome"
-                value={formData.monthlyIncome}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Monthly Expenses (₹)</label>
-              <input
-                type="number"
-                name="monthlyExpenses"
-                value={formData.monthlyExpenses}
+                name="monthlyDeposit"
+                value={formData.monthlyDeposit}
                 onChange={handleChange}
                 required
               />
@@ -166,24 +186,11 @@ function GoldenWay() {
             </div>
 
             <div className="form-group">
-              <label>Risk Tolerance</label>
-              <select
-                name="riskTolerance"
-                value={formData.riskTolerance}
-                onChange={handleChange}
-              >
-                <option value="conservative">Conservative</option>
-                <option value="moderate">Moderate</option>
-                <option value="aggressive">Aggressive</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label>Expected Inflation Rate (%)</label>
+              <label>Required Amount at Retirement (₹)</label>
               <input
                 type="number"
-                name="expectedInflation"
-                value={formData.expectedInflation}
+                name="requiredRetirementAmount"
+                value={formData.requiredRetirementAmount}
                 onChange={handleChange}
                 required
               />
@@ -194,6 +201,14 @@ function GoldenWay() {
         ) : (
           <div className="results">
             <h2>Your Retirement Plan</h2>
+            <div className="result-item">
+              <span>Required Return Rate:</span>
+              <span>{retirementPlan.requiredReturn}%</span>
+            </div>
+            <div className="result-item">
+              <span>Recommended Risk Profile:</span>
+              <span style={{ textTransform: 'capitalize' }}>{retirementPlan.riskTolerance}</span>
+            </div>
             <div className="result-item">
               <span>Expected Retirement Savings:</span>
               <span>₹{retirementPlan.futureValue.toLocaleString()}</span>
@@ -208,7 +223,7 @@ function GoldenWay() {
             </div>
             <div className="result-item">
               <span>Monthly Investment Needed:</span>
-              <span>₹{retirementPlan.monthlyInvestment.toLocaleString()}</span>
+              <span>₹{retirementPlan.monthlyDeposit.toLocaleString()}</span>
             </div>
             <div className="result-item">
               <span>Years to Retirement:</span>

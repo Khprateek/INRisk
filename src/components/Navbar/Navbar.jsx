@@ -11,7 +11,7 @@ const Navbar = () => {
           <Link to="/">Home</Link>
           <Link to="/Goldenway">Golden Way</Link>
           <Link to="/services">Services</Link>
-          <Link to="/portfolio">Portfolio</Link>
+          <Link to="/marketlense">Market Lense</Link>
           <Link to="/contacts">Contacts</Link>
           <Link to="/cart">
             <img src="/Images/Bag_icon.png" alt="Shopping Cart" />

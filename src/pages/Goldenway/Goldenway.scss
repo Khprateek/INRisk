@@ -20,17 +20,13 @@
     @content;
   }
 }
-
-// Global Styles
 body {
   background-color: var(--background-dark);
   font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: var(--text-color);
 }
-
 .golden-way-container {
-  padding: 0rem 2rem 2rem 2rem;
   width: max-content;
   margin: 0 auto;
   background-color: var(--background-light);
@@ -50,8 +46,22 @@ body {
     font-weight: 700;
     letter-spacing: -1px;
     background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  }
+
+  .inflation-info {
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    margin: 1rem auto;
+    width: fit-content;
+    
+    p {
+      margin: 0;
+      color: var(--text-color);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
   }
 }
 

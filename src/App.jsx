@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import Portfolio from './pages/Portfolio/Portfolio';
+import MarketLense from './pages/Portfolio/MarketLense';
 import GoldenWay from './pages/Goldenway/Goldenway';
 import './App.scss';
 
@@ -16,7 +16,7 @@ const App = () => {
 const AppContent = () => {
   const location = useLocation();
   return (
-    <div className="App">
+    <div className="Appcontent">
       <Navbar />
       {location.pathname === '/' && (
         <div className="home-content">
@@ -25,7 +25,7 @@ const AppContent = () => {
         </div>
       )}
       <Routes>
-        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/marketlense" element={<MarketLense />} />
         <Route path="/goldenway" element={<GoldenWay />} />
       </Routes>
     </div>
