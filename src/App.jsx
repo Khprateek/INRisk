@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
-import MarketLense from './pages/Portfolio/MarketLense';
+import RiskRuler from './pages/RiskRuler/RiskRuler';
 import GoldenWay from './pages/Goldenway/Goldenway';
 import './App.scss';
 
@@ -25,7 +25,7 @@ const AppContent = () => {
         </div>
       )}
       <Routes>
-        <Route path="/marketlense" element={<MarketLense />} />
+        <Route path="/RiskRuler" element={<RiskRuler />} />
         <Route path="/goldenway" element={<GoldenWay />} />
       </Routes>
     </div>
