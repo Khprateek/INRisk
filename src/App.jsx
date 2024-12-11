@@ -16,7 +16,7 @@ const App = () => {
 const AppContent = () => {
   const location = useLocation();
   return (
-    <div className="Appcontent">
+    <div className="app-content">
       <Navbar />
       {location.pathname === '/' && (
         <div className="home-content">

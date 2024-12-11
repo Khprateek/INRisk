@@ -3,22 +3,26 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    height: max-content;
+    border-radius: 1rem;
+    background-color: rgba(25, 17, 51, 0.8);
   
     &__card {
-      background: #ffffff;
+      background: transparent;
       border-radius: 12px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: var(--text-color);
     }
   
     &__header {
       padding: 24px;
-      border-bottom: 1px solid #eaeaea;
+      border-bottom: 1px solid var(--border-color);
   
       h2 {
         margin: 0 0 20px 0;
         font-size: 24px;
         font-weight: 600;
-        color: #1a202c;
+        color: var(--text-color);
       }
     }
   
@@ -29,14 +33,16 @@
       input {
         flex: 1;
         padding: 12px 16px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--border-color);
         border-radius: 6px;
         font-size: 16px;
+        background-color: var(--input-bg);
+        color: var(--text-color);
         transition: border-color 0.2s;
   
         &:focus {
           outline: none;
-          border-color: #2c5282;
+          border-color: var(--accent-color);
         }
       }
     }
@@ -93,9 +99,9 @@
   
       .info-item {
         padding: 16px;
-        background: #f7fafc;
+        background: var(--card-bg);
         border-radius: 8px;
-        border: 1px solid #e2e8f0;
+        border: 1px solid var(--border-color);
         transition: transform 0.2s, box-shadow 0.2s;
   
         &:hover {
@@ -104,14 +110,16 @@
         }
   
         &.highlight {
-          background: #ebf8ff;
-          border-color: #90cdf4;
+          background: var(--accent-color);
+          opacity: 0.1;
+          border-color: var(--accent-color);
         }
   
         .label {
           display: block;
           font-size: 14px;
-          color: #4a5568;
+          color: var(--text-color);
+          opacity: 0.7;
           margin-bottom: 4px;
         }
   
@@ -119,7 +127,7 @@
           display: block;
           font-size: 18px;
           font-weight: 600;
-          color: #2d3748;
+          color: var(--text-color);
         }
       }
     }
