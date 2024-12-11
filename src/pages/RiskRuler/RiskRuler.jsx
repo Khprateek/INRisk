@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import './RiskRuler.scss';
 
@@ -24,32 +24,35 @@ const RiskRuler = () => {
     setLoading(true);
     setError('');
     try {
-      console.log(`Attempting to fetch data for ticker: ${ticker}`);
-      
-      const response = await fetch(`http://localhost:8000/api/stock/${ticker}.NS`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
+      if (!ticker.trim()) {
+        throw new Error('Please enter a stock symbol');
+      }
+
+      const response = await fetch(`http://localhost:8000/api/stock/${ticker.toUpperCase()}.NS`);
       
       if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error(`Failed to fetch stock data: ${response.status} ${errorData}`);
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
       
       const data = await response.json();
-      console.log('Received data:', data);
+      
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid data received from server');
+      }
+
+      console.log('Received stock data:', data);
       setStockData(data);
     } catch (err) {
-      console.error('Error details:', err);
-      setError(`Failed to fetch stock data: ${err.message}`);
+      console.error('Error fetching stock data:', err);
+      setError(err.message || 'Failed to fetch stock data');
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setError('');
+  }, [ticker]);
 
   return (
     <div className="risk-ruler">
@@ -59,18 +62,23 @@ const RiskRuler = () => {
           <div className="risk-ruler__input-group">
             <input
               type="text"
-              placeholder="Enter symbol (e.g., TATAMOTORS)"
+              placeholder="Enter symbol (e.g., SBIN)"
               value={ticker}
-              onChange={(e) => setTicker(e.target.value)}
+              onChange={(e) => setTicker(e.target.value.toUpperCase())}
             />
             <button
               onClick={fetchStockData}
-              disabled={loading}
+              disabled={loading || !ticker.trim()}
               className="risk-ruler__button"
             >
               {loading ? 'Loading...' : 'Get Stock Data'}
             </button>
           </div>
+          {loading && (
+            <div className="risk-ruler__loading">
+              Loading stock data...
+            </div>
+          )}
         </div>
 
         {error && (
