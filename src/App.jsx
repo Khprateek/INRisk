@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import Navbar from './components/Navbar/Navbar';
 import RiskRuler from './pages/RiskRuler/RiskRuler';
 import GoldenWay from './pages/Goldenway/Goldenway';
+import Footer from './components/Navbar/footer';
 import './App.scss';
 
 const App = () => {
@@ -24,6 +25,7 @@ const AppContent = () => {
           <p>Your trusted platform for risk management</p>
         </div>
       )}
+      <Footer />
       <Routes>
         <Route path="/RiskRuler" element={<RiskRuler />} />
         <Route path="/goldenway" element={<GoldenWay />} />

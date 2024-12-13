@@ -6,6 +6,7 @@
     height: max-content;
     border-radius: 1rem;
     background-color: rgba(25, 17, 51, 0.8);
+    border: 1px solid rgba(141, 49, 245, .2);
   
     &__card {
       background: transparent;
@@ -64,6 +65,7 @@
       &:disabled {
         background: #cbd5e0;
         cursor: not-allowed;
+        color: black;
       }
     }
   
@@ -99,7 +101,7 @@
   
       .info-item {
         padding: 16px;
-        background: var(--card-bg);
+        background-color: rgba(111, 65, 210, .1);
         border-radius: 8px;
         border: 1px solid var(--border-color);
         transition: transform 0.2s, box-shadow 0.2s;
