@@ -86,102 +86,6 @@ const RiskRuler = () => {
             {error}
           </div>
         )}
-
-        {stockData && (
-          <div className="risk-ruler__content">
-            {/* Company Info Section */}
-            <div className="data-section">
-              <h3>Company Information</h3>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="label">Company Name</span>
-                  <span className="value">{stockData.basicInfo.name}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Exchange</span>
-                  <span className="value">{stockData.basicInfo.exchange}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Currency</span>
-                  <span className="value">{stockData.basicInfo.currency}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Price Information */}
-            <div className="data-section">
-              <h3>Price Information</h3>
-              <div className="info-grid">
-                <div className="info-item highlight">
-                  <span className="label">Current Price</span>
-                  <span className="value">{formatLargeNumber(stockData.basicInfo.currentPrice)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">52 Week High</span>
-                  <span className="value">{formatLargeNumber(stockData.keyMetrics['52WeekHigh'])}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">52 Week Low</span>
-                  <span className="value">{formatLargeNumber(stockData.keyMetrics['52WeekLow'])}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Key Metrics */}
-            <div className="data-section">
-              <h3>Key Metrics</h3>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="label">Market Cap</span>
-                  <span className="value">{formatLargeNumber(stockData.keyMetrics.marketCap)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">P/E Ratio</span>
-                  <span className="value">{formatNumber(stockData.keyMetrics.peRatio)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">EPS</span>
-                  <span className="value">{formatNumber(stockData.keyMetrics.eps)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Dividend Rate</span>
-                  <span className="value">{formatNumber(stockData.keyMetrics.dividendRate)}%</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Volume</span>
-                  <span className="value">{stockData.keyMetrics.volume?.toLocaleString()}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Financial Information */}
-            <div className="data-section">
-              <h3>Financial Information</h3>
-              <div className="info-grid">
-                <div className="info-item">
-                  <span className="label">Total Revenue</span>
-                  <span className="value">{formatLargeNumber(stockData.financials.totalRevenue)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Gross Profits</span>
-                  <span className="value">{formatLargeNumber(stockData.financials.grossProfits)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Total Debt</span>
-                  <span className="value">{formatLargeNumber(stockData.financials.totalDebt)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Total Assets</span>
-                  <span className="value">{formatLargeNumber(stockData.financials.totalAssets)}</span>
-                </div>
-                <div className="info-item">
-                  <span className="label">Total Liabilities</span>
-                  <span className="value">{formatLargeNumber(stockData.financials.totalLiabilities)}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
 
@@ -207,8 +111,29 @@ const RiskRuler = () => {
                 <span className="value">{formatLargeNumber(stockData.financials.totalDebt)}</span>
               </div>
             </div>
+            {/* LEFT BOTTOM */}
             <div className="containerleftbottom">
-
+              <h3>Key Matrics</h3>
+              <div className="info-item">
+                  <span className="label">Market Cap</span>
+                  <span className="value">{formatLargeNumber(stockData.keyMetrics.marketCap)}</span>
+                </div>
+                <div className="info-item">
+                  <span className="label">P/E Ratio</span>
+                  <span className="value">{formatNumber(stockData.keyMetrics.peRatio)}</span>
+                </div>
+                <div className="info-item">
+                  <span className="label">EPS</span>
+                  <span className="value">{formatNumber(stockData.keyMetrics.eps)}</span>
+                </div>
+                <div className="info-item">
+                  <span className="label">Dividend Rate</span>
+                  <span className="value">{formatNumber(stockData.keyMetrics.dividendRate)}%</span>
+                </div>
+                <div className="info-item">
+                  <span className="label">Volume</span>
+                  <span className="value">{stockData.keyMetrics.volume?.toLocaleString()}</span>
+                </div>
             </div>
           </div>
           <div className="containerright">
@@ -224,7 +149,14 @@ const RiskRuler = () => {
 
                 </div>
                 <div className="rightbottomrightbottom">
-
+                  <div className="info-item">
+                    <span className="label">52 Week High</span>
+                    <span className="value">{formatLargeNumber(stockData.keyMetrics['52WeekHigh'])}</span>
+                  </div>
+                  <div className="info-item">
+                    <span className="label">52 Week Low</span>
+                    <span className="value">{formatLargeNumber(stockData.keyMetrics['52WeekLow'])}</span>
+                  </div>
                 </div>
               </div>
             </div>

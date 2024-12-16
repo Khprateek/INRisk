@@ -1,0 +1,72 @@
+.trending-news {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  
+    &__section {
+      margin-bottom: 30px;
+    }
+  
+    &__heading {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+  
+    &__card {
+      padding: 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      background-color: rgba(25, 17, 51, 0.8);
+      transition: transform 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+    }
+  
+    &__title {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #2c5282;
+    }
+  
+    &__description {
+      color: #4a5568;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+  
+    &__metadata {
+      font-size: 14px;
+      color: #718096;
+      margin-bottom: 10px;
+    }
+  
+    &__link {
+      color: #2b6cb0;
+      text-decoration: none;
+      display: inline-block;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  
+    &__error {
+      padding: 10px;
+      background-color: #fed7d7;
+      color: #c53030;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+  
+    &__loading {
+      text-align: center;
+      padding: 20px;
+      color: #718096;
+    }
+  }

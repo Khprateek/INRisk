@@ -5,6 +5,7 @@ import RiskRuler from './pages/RiskRuler/RiskRuler';
 import GoldenWay from './pages/Goldenway/Goldenway';
 import Footer from './components/Navbar/footer';
 import './App.scss';
+import News from './components/Navbar/News';
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const AppContent = () => {
         <Route path="/RiskRuler" element={<RiskRuler />} />
         <Route path="/goldenway" element={<GoldenWay />} />
       </Routes>
+      <News/>
       <Footer />
     </div>
   );
