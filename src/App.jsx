@@ -25,11 +25,11 @@ const AppContent = () => {
           <p>Your trusted platform for risk management</p>
         </div>
       )}
-      <Footer />
       <Routes>
         <Route path="/RiskRuler" element={<RiskRuler />} />
         <Route path="/goldenway" element={<GoldenWay />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

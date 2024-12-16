@@ -29,13 +29,13 @@ const RiskRuler = () => {
       }
 
       const response = await fetch(`http://localhost:8000/api/stock/${ticker.toUpperCase()}.NS`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
+
       if (!data || typeof data !== 'object') {
         throw new Error('Invalid data received from server');
       }
@@ -183,6 +183,56 @@ const RiskRuler = () => {
           </div>
         )}
       </div>
+
+
+      {stockData && (
+        <div className="testcontainer">
+          <div className="containerleft">
+            <div className="containerlefttop">
+              <h3>Basic Info</h3>
+              <div className="info-item">
+                <span className="label">Company Name</span>
+                <span className="value">{stockData.basicInfo.name}</span>
+              </div>
+              <div className="info-item">
+                <span className="label">Current Price</span>
+                <span className="value">{formatLargeNumber(stockData.basicInfo.currentPrice)}</span>
+              </div>
+              <div className="info-item">
+                <span className="label">Total Revenue</span>
+                <span className="value">{formatLargeNumber(stockData.financials.totalRevenue)}</span>
+              </div>
+              <div className="info-item">
+                <span className="label">Total Debt</span>
+                <span className="value">{formatLargeNumber(stockData.financials.totalDebt)}</span>
+              </div>
+            </div>
+            <div className="containerleftbottom">
+
+            </div>
+          </div>
+          <div className="containerright">
+            <div className="containerrighttop">
+
+            </div>
+            <div className="containerrightbottom">
+              <div className="rightbottomleft">
+
+              </div>
+              <div className="rightbottomright">
+                <div className="rightbottomrighttop">
+
+                </div>
+                <div className="rightbottomrightbottom">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </div>
   );
 };
