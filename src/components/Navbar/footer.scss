@@ -1,4 +1,4 @@
-.foot_container {
+footer {
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -49,6 +49,9 @@
                             opacity: 1;
                         }
                     }
+                }
+                a{
+                    color: var(--text-color);
                 }
             }
         }
