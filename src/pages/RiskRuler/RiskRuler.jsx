@@ -56,10 +56,10 @@ const RiskRuler = () => {
 
   return (
     <div className="risk-ruler">
-      <div className="risk-ruler__card">
-        <div className="risk-ruler__header">
+      <div className="risk-ruler_card">
+        <div className="risk-ruler_card_header">
           <h2>Stock Data Dashboard</h2>
-          <div className="risk-ruler__input-group">
+          <div className="risk-ruler_card_header_input">
             <input
               type="text"
               placeholder="Enter symbol (e.g., SBIN)"
