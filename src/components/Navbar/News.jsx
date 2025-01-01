@@ -1,11 +1,10 @@
 //a70790f630344454af4217955baa770a
 // https://newsapi.org/docs
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './news.scss';
 
 const News = () => {
-  const [bitcoinNews, setBitcoinNews] = useState([]);
   const [stockNews, setStockNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -33,12 +32,9 @@ const News = () => {
     const fetchAllNews = async () => {
       setLoading(true);
       try {
-        const [bitcoinResults, stockResults] = await Promise.all([
-          fetchNews('bitcoin'),
+        const [stockResults] = await Promise.all([
           fetchNews('(RELIANCE OR TATA OR INFOSYS) AND stocks')
         ]);
-        
-        setBitcoinNews(bitcoinResults);
         setStockNews(stockResults);
       } catch (err) {
         setError(err.message);
@@ -63,29 +59,7 @@ const News = () => {
   }
 
   return (
-    <div className="trending-news">
-      <div className="trending-news__section">
-        <h2 className="trending-news__heading">Latest Bitcoin News</h2>
-        {bitcoinNews.map((article, index) => (
-          <div key={index} className="trending-news__card">
-            <h3 className="trending-news__title">{article.title}</h3>
-            <p className="trending-news__description">{article.description}</p>
-            <p className="trending-news__metadata">
-              {article.author ? `By ${article.author} • ` : ''}
-              {new Date(article.publishedAt).toLocaleDateString()}
-            </p>
-            <a 
-              href={article.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="trending-news__link"
-            >
-              Read more →
-            </a>
-          </div>
-        ))}
-      </div>
-
+    <div className="max-w-6xl mx-auto p-6">
       <div className="trending-news__section">
         <h2 className="trending-news__heading">Indian Stock Market News</h2>
         {stockNews.map((article, index) => (
